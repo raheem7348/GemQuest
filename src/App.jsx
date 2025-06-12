@@ -49,7 +49,12 @@ function App() {
     setResult([...result, { type: 'q', text: question }, { type: 'a', text: dataString }])
 
   }
-  console.log(result);
+  // console.log(result);
+
+  const clearHistory = ()=>{
+    localStorage.clear();
+    setRecentHistory([])
+  }
 
 
   return (
@@ -57,10 +62,14 @@ function App() {
 
       {/* left Part */}
       <div className="col-span-1 bg-zinc-800 h-screen text-zinc-300">
-        <ul>
+        <h1 className="text-xl pt-3  text-center flex justify-center">
+          <span>Recent Search</span>
+        <button onClick={clearHistory} className="cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#D9D9D9"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg></button>
+        </h1>
+        <ul className="text-left overflow-auto">
           {
             recentHistory && recentHistory.map((item, index) =>(
-              <li>{item}</li>
+              <li className="px-5 pl-5 truncate  hover:bg-zinc-700 hover:text-zinc-50 cursor-pointer">{item}</li>
             ))
           }
         </ul>
@@ -80,7 +89,7 @@ function App() {
                         <li key={index + Math.random()} className="text-right p-1 border-8 bg-zinc-700 border-zinc-700 rounded-tl-3xl rounded-bl-3xl rounded-br-3xl w-fit ">
                           <Answers ans={item.text} index={index} totalResult={1} type={item.type} /></li>
                         : item.text.map((ansItem, ansIndex) => (
-                          <li key={index + Math.random()} className="text-left p-1"><Answers ans={ansItem} index={ansIndex} totalResult={item.length} type={item.type} /></li>
+                          <li key={index} className="text-left p-1"><Answers ans={ansItem} index={ansIndex} totalResult={item.length} type={item.type} /></li>
                         ))
                     }
                   </div>
