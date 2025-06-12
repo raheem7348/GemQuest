@@ -22,6 +22,11 @@ function App() {
     ]
   }
   const askQuestion = async () => {
+    
+    if (!question) {
+      return false
+    }
+
     if (localStorage.getItem('history')) {
       let history = localStorage.getItem('history')
       history = JSON.parse(localStorage.getItem('history'))
@@ -48,12 +53,21 @@ function App() {
     //  setResult(data.candidates[0].content.parts[0].text)
     setResult([...result, { type: 'q', text: question }, { type: 'a', text: dataString }])
 
+    setQuestion('')
+
   }
   // console.log(result);
 
   const clearHistory = ()=>{
     localStorage.clear();
     setRecentHistory([])
+  }
+
+  const isEnter = (e)=>{
+     console.log(e.key);
+     if (e.key == 'Enter') {
+      askQuestion()
+     }
   }
 
 
@@ -99,7 +113,11 @@ function App() {
           </div>
         </div>
         <div className="flex bg-zinc-800 text-white w-1/2 mx-auto rounded-full border border-zinc-700  h-16 p-1 pr-5">
-          <input className="w-full h-full outline-none mx-2 text-bold " type="text" value={question} onChange={(e) => setQuestion(e.target.value)} placeholder="Ask me anything" />
+          <input className="w-full h-full outline-none mx-2 text-bold "
+           type="text" value={question} 
+           onChange={(e) => setQuestion(e.target.value)}
+           onKeyDown={isEnter}
+            placeholder="Ask me anything" />
           <button onClick={askQuestion} className="hover:bg-zinc-700 p-2">Ask</button>
         </div>
       </div>
