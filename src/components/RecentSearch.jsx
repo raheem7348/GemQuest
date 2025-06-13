@@ -14,8 +14,7 @@ const RecentSearch = ({recentHistory, setRecentHistory, setSelectedHistory}) => 
             }
         })
         setRecentHistory(history);
-        localStorage.setItem('history', JSON.stringify(history))
-          console.log(history);                    
+        localStorage.setItem('history', JSON.stringify(history))                
     }
 
     return (

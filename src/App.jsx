@@ -71,7 +71,7 @@ function App() {
     }, 500);
     setLoader(false)
   }
-  // console.log(result);
+
 
 
 
@@ -90,7 +90,6 @@ function App() {
   //dark mode feature
   const [darkmode, setDarkmode] = useState('dark');
   useEffect(()=>{
-    // console.log(darkmode);
     if (darkmode == 'dark') {
       document.documentElement.classList.add('dark')
     } else {
