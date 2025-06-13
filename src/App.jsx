@@ -25,7 +25,12 @@ function App() {
       if (localStorage.getItem('history')) {
         let history = localStorage.getItem('history')
         history = JSON.parse(localStorage.getItem('history'))
+        history = history.slice(0,19)
         history = [question, ...history]
+        history = history.map((item)=>
+          item.charAt(0).toUpperCase()+item.slice(1).trim()
+        )
+        history = [...new Set(history)]
         localStorage.setItem('history', JSON.stringify(history))
         setRecentHistory(history)
       } else {
@@ -99,9 +104,9 @@ function App() {
     <div className="grid grid-cols-5 h-screen text-center">
 
       {/* left Part */}
-       <select onChange={(event)=> setDarkmode(event.target.value)} className="fixed dark:text-white text-black bottom-0 p-5">
-        <option value="dark">Dark</option>
-        <option value="light">Light</option>
+       <select onChange={(event)=> setDarkmode(event.target.value)} className="fixed dark:text-white text-black bottom-1 p-5">
+        <option className="bg-black text-white" value="dark">Dark</option>
+        <option className="bg-black text-white" value="light">Light</option>
        </select>
       
        <RecentSearch recentHistory = {recentHistory} setRecentHistory={setRecentHistory} setSelectedHistory = {setSelectedHistory}/>
